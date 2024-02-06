@@ -26,7 +26,19 @@ export default {
   methods: {
     submitHandler(e) {
       e.preventDefault();
-      this.$store.dispatch("register");
+      const data = {
+        username: "user9",
+        email: "em@gmai9.com",
+        password: "password",
+      };
+      this.$store
+        .dispatch("register", data)
+        .then((response) => {
+          console.log("User", response);
+        })
+        .catch((error) => {
+          console.log("Error", error);
+        });
     },
   },
 };

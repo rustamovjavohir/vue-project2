@@ -2,13 +2,24 @@
   <main class="form-signin w-50 m-auto mt-5">
     <form>
       <h1 class="h3 mb-3 fw-normal">Register</h1>
-      <Input :label="'Firt name'" :type="'text'" :placeholder="'First name'" />
+      <Input
+        :label="'Firt name'"
+        :type="'text'"
+        :placeholder="'First name'"
+        v-model="username"
+      />
       <Input
         :label="'Email address'"
         :type="'email'"
         :placeholder="'name@example.com'"
+        v-model="email"
       />
-      <Input :label="'Password'" :type="'password'" :placeholder="'Password'" />
+      <Input
+        :label="'Password'"
+        :type="'password'"
+        :placeholder="'Password'"
+        v-model="password"
+      />
 
       <Button type="submit" :disabled="isLoading" @click="submitHandler"
         >Register</Button
@@ -18,6 +29,13 @@
 </template>
 <script>
 export default {
+  data() {
+    return {
+      username: "",
+      email: "",
+      password: "",
+    };
+  },
   computed: {
     isLoading() {
       return this.$store.state.auth.isLoading;
@@ -27,14 +45,15 @@ export default {
     submitHandler(e) {
       e.preventDefault();
       const data = {
-        username: "user9",
-        email: "em@gmai9.com",
-        password: "password",
+        username: this.username,
+        email: this.email,
+        password: this.password,
       };
       this.$store
         .dispatch("register", data)
         .then((response) => {
           console.log("User", response);
+          this.$router.push({ name: "home" });
         })
         .catch((error) => {
           console.log("Error", error);

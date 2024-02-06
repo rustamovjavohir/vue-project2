@@ -5,7 +5,7 @@
     <a
       class="d-flex align-items-center text-dark text-decoration-none"
       @click="toHomeHandler"
-      style="cursor: pointer;"
+      style="cursor: pointer"
     >
       <img src="../assets/logo/Dashboard.png" class="w-25" alt="logo" />
       <span class="fs-4">Dashboard</span>
@@ -39,7 +39,7 @@ export default {
   components: { RouterLink },
   methods: {
     toHomeHandler() {
-      return this.$router.push("/");
+      return this.$router.push({ name: "home" });
     },
   },
 };

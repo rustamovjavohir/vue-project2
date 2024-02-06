@@ -3,10 +3,12 @@
     <input
       :type="type"
       class="form-control"
-      id="floatingInput"
+      :id="label"
       :placeholder="placeholder"
+      @input="updateInput"
+      :value="modelValue"
     />
-    <label for="floatingInput">{{ label }}</label>
+    <label :for="label">{{ label }}</label>
   </div>
 </template>
 <script>
@@ -16,6 +18,12 @@ export default {
     label: String,
     type: String,
     placeholder: String,
+    modelValue: [String, Number],
+  },
+  methods: {
+    updateInput(e) {
+      this.$emit("update:modelValue", e.target.value);
+    },
   },
 };
 </script>

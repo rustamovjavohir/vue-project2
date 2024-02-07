@@ -1,10 +1,23 @@
 import { setItem } from '@/helpers/persistaneStorage'
 import AuthService from "@/services/auth"
+import { gettersTypes } from '@/modules/types'
 const state = {
     isLoading: false,
     user: null,
     errors: null,
     isLoggedIn: null
+}
+
+const getters = {
+    [gettersTypes.currentUser]: state => {
+        return state.user
+    },
+    [gettersTypes.isLoggenIn]: state => {
+        return state.isLoggedIn
+    },
+    [gettersTypes.isAnonymous]: state => {
+        return state.isLoggedIn == false
+    },
 }
 
 const mutations = {
@@ -84,4 +97,5 @@ export default {
     state,
     mutations,
     actions,
+    getters,
 }

@@ -2,6 +2,10 @@
   <main class="form-signin w-50 m-auto mt-5">
     <form>
       <h1 class="h3 mb-3 fw-normal">Register</h1>
+      <ValidationError
+        v-if="ValidationErrors"
+        :ValidationErrors="ValidationErrors"
+      />
       <Input
         :label="'Firt name'"
         :type="'text'"
@@ -28,6 +32,7 @@
   </main>
 </template>
 <script>
+import ValidationError from "@/components/ValidationError.vue";
 export default {
   data() {
     return {
@@ -36,9 +41,15 @@ export default {
       password: "",
     };
   },
+  components: {
+    ValidationError,
+  },
   computed: {
     isLoading() {
       return this.$store.state.auth.isLoading;
+    },
+    ValidationErrors() {
+      return this.$store.state.auth.errors;
     },
   },
   methods: {

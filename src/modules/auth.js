@@ -3,7 +3,8 @@ import AuthService from "@/services/auth"
 const state = {
     isLoading: false,
     user: null,
-    errors: null
+    errors: null,
+    isLoggedIn: null
 }
 
 const mutations = {
@@ -11,28 +12,34 @@ const mutations = {
         state.isLoading = true
         state.errors = null
         state.user = null
+        state.isLoggedIn = null
     },
     registerSuccess(state, user) {
         state.isLoading = false
         state.user = user
+        state.isLoggedIn = true
     },
     registerFailure(state, error) {
         state.isLoading = false
         state.errors = error.errors
+        state.isLoggedIn = false
     },
 
     loginStart(state) {
         state.isLoading = true
         state.errors = null
         state.user = null
+        state.isLoggedIn = null
     },
     loginSuccess(state, payload) {
         state.isLoading = false
         state.user = payload
+        state.isLoggedIn = true
     },
     loginFailure(state, payload) {
         state.isLoading = false
         state.errors = payload.errors
+        state.isLoggedIn = false
     },
 
 }

@@ -6,7 +6,10 @@ const AuthService = {
     },
     login(user) {
         return axios.post('/users/login', { user: user })
-    }
+    },
+    getUser() {
+        return axios.get('/user')
+    },
 }
 
 export default AuthService

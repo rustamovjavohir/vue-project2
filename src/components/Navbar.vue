@@ -13,11 +13,17 @@
     <nav class="d-inline-flex mt-2 mt-md-0 ms-md-auto">
       <template v-if="isLoggedIn">
         <RouterLink
-          :to="{ name: 'login' }"
+          :to="{ name: 'home' }"
           class="me-3 py-2 text-dark text-decoration-none"
         >
           {{ user.username }}
         </RouterLink>
+        <a
+          href="#"
+          class="me-3 py-2 text-dark text-decoration-none"
+          @click="logout"
+          >Logout</a
+        >
       </template>
       <template v-if="isAnonymous">
         <RouterLink
@@ -41,6 +47,7 @@ import { mapState, mapGetters } from "vuex";
 import { RouterLink } from "vue-router";
 import { logo } from "../constants";
 import { gettersTypes } from "@/modules/types";
+import store from "@/store";
 export default {
   data() {
     return {
@@ -66,6 +73,9 @@ export default {
   methods: {
     toHomeHandler() {
       return this.$router.push({ name: "home" });
+    },
+    logout() {
+      return this.$store.dispatch("logout");
     },
   },
 };

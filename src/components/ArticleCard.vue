@@ -1,6 +1,7 @@
 <template>
   <div class="col">
-    <div class="card shadow-sm">
+    <!-- <div class="card shadow-sm"> -->
+    <div class="card" style="border: none; border-radius: 0">
       <svg
         class="bd-placeholder-img card-img-top"
         width="100%"
@@ -19,16 +20,18 @@
           {{ article.title }}
         </p>
         <p class="card-text">{{ article.body.slice(0, 250) }}...</p>
-        <div class="d-flex justify-content-between align-items-center">
+        <div class="d-flex justify-content-between align-items-center card-footer">
           <div class="btn-group">
             <button type="button" class="btn btn-sm btn-outline-secondary">
-              View
+              Read more
             </button>
-            <button type="button" class="btn btn-sm btn-outline-secondary">
+            <!-- <button type="button" class="btn btn-sm btn-outline-secondary">
               Edit
-            </button>
+            </button> -->
           </div>
-          <small class="text-body-secondary">9 mins</small>
+          <small class="text-body-secondary">{{
+            new Date(article.createdAt).toLocaleDateString("us")
+          }}</small>
         </div>
       </div>
     </div>

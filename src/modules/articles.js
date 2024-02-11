@@ -3,7 +3,7 @@ import axios from "axios"
 
 const state = {
     data: null,
-    isLoading: false,
+    isLoading: true,
     error: null
 }
 

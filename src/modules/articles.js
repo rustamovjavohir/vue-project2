@@ -4,7 +4,8 @@ import axios from "axios"
 const state = {
     data: null,
     isLoading: true,
-    error: null
+    error: null,
+    article: null,
 }
 
 const mutations = {
@@ -20,6 +21,19 @@ const mutations = {
     getArticlesFaliure(state) {
         state.isLoading = false
     },
+    getArticleDetailStart(state) {
+        state.isLoading = true
+        state.article = null
+        state.error = null
+    },
+    getArticleDetailSuccess(state, payload) {
+        state.isLoading = false
+        state.article = payload
+    },
+    getArticleDetailFaliure(state, payload) {
+        state.isLoading = false
+        state.article = payload
+    },
 
 }
 
@@ -30,11 +44,25 @@ const actions = {
             ArticleService.articles()
                 .then(response => {
                     context.commit('getArticlesSuccess', response.data)
-                    console.log("RESPONSE", response.data)
+                    // console.log("RESPONSE", response.data)
                 })
                 .catch(error => {
                     context.commit('getArticlesFaliure')
-                    console.log("ERROR", error)
+                    // console.log("ERROR", error)
+                })
+        })
+    },
+
+    articleDetail(context, slug) {
+        return new Promise((resolve) => {
+            context.commit('getArticleDetailStart')
+            ArticleService.articleDetail(slug)
+                .then(response => {
+                    context.commit('getArticleDetailSuccess', response.data.article)
+
+                })
+                .catch(error => {
+                    // context.commit('getArticleDetailFaliure',)
                 })
         })
     },

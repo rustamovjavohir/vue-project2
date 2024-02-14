@@ -7,7 +7,8 @@ const ArticleService = {
 
     articleDetail(slug) {
         return axios.get(`/articles/${slug}`)
-    }
+    },
+
 }
 
 export default ArticleService

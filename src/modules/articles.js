@@ -35,6 +35,17 @@ const mutations = {
         state.article = payload
     },
 
+    createArticleStart(state) {
+        state.isLoading = true
+    },
+    createArticleSuccess(state, payload) {
+        state.isLoading = false
+
+    },
+    createArticleFailure(state, error) {
+        state.isLoading = false
+    },
+
 }
 
 const actions = {
@@ -66,6 +77,19 @@ const actions = {
                 })
         })
     },
+
+    createArticle(context, article) {
+        return new Promise((resolve, reject) => {
+            context.commit('createArticleStart')
+            ArticleService.createArticle(article)
+                .then(response => {
+                    context.commit('createArticleSuccess')
+                })
+                .catch(reject => {
+                    context.commit('createArticleFailure')
+                })
+        })
+    }
 }
 
 export default {

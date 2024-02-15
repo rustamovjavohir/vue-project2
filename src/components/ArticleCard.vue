@@ -31,9 +31,15 @@
             >
               Read more
             </button>
-            <!-- <button type="button" class="btn btn-sm btn-outline-secondary">
-              Edit
-            </button> -->
+            <button
+              v-if="article.author.username == user.username"
+              type="button"
+              class="btn btn-sm btn-outline-danger ms-2"
+              @click="deleteArticleHandler"
+              :disabled="isLoadingDelete"
+            >
+              Delete
+            </button>
           </div>
           <small class="text-body-secondary">{{
             new Date(article.createdAt).toLocaleDateString("us")
@@ -44,6 +50,7 @@
   </div>
 </template>
 <script>
+import { mapState } from "vuex";
 export default {
   props: {
     article: {
@@ -55,6 +62,17 @@ export default {
     navigateHandler() {
       return this.$router.push(`/article/${this.article.slug}`);
     },
+    deleteArticleHandler() {
+      this.$store.dispatch("deleteArticle", this.article.slug).then(() => {
+        this.$store.dispatch("articles");
+      });
+    },
+  },
+  computed: {
+    ...mapState({
+      user: (state) => state.auth.user,
+      isLoadingDelete: (state) => state.articles.isLoadingDelete,
+    }),
   },
 };
 </script>

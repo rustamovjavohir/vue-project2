@@ -4,6 +4,7 @@ import axios from "axios"
 const state = {
     data: null,
     isLoading: true,
+    isLoadingDelete: false,
     error: null,
     article: null,
 }
@@ -44,6 +45,17 @@ const mutations = {
     },
     createArticleFailure(state, error) {
         state.isLoading = false
+    },
+
+    deleteArticleStart(state) {
+        state.isLoadingDelete = true
+    },
+    deleteArticleSuccess(state) {
+        state.isLoadingDelete = false
+
+    },
+    deleteArticleFailure(state) {
+        state.isLoadingDelete = false
     },
 
 }
@@ -87,6 +99,20 @@ const actions = {
                 })
                 .catch(reject => {
                     context.commit('createArticleFailure')
+                })
+        })
+    },
+
+    deleteArticle(context, slug) {
+        return new Promise((resolve) => {
+            context.commit('deleteArticleStart')
+            ArticleService.deleteArticle(slug)
+                .then((response) => {
+                    context.commit('deleteArticleSuccess')
+                    resolve()
+                })
+                .catch(() => {
+                    context.commit('deleteArticleFailure')
                 })
         })
     }
